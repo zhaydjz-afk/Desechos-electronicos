@@ -1,94 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Desechos electrónicos (RAEE)</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-      color: #1f2937;
-      background: #f0fdf4;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desechos electrónicos (RAEE)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f1f6f2;
+    --surface: #ffffff;
+    --ink: #14231e;
+    --muted: #4b5f57;
+    --line: #cddbd2;
+    --green: #17795a;
+    --green-soft: #dcefe5;
+    --amber: #8a5a00;
+    --amber-soft: #fbedc9;
+    --red: #9b2c2c;
+    --red-soft: #f8dcdc;
+    --code-bg: #14231e;
+    --code-ink: #d8efe3;
+    --head: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+    --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1a16;
+      --surface: #16251f;
+      --ink: #e6f2ec;
+      --muted: #9db5aa;
+      --line: #2a3f36;
+      --green: #4cc79b;
+      --green-soft: #17372b;
+      --amber: #f0c25a;
+      --amber-soft: #3a2f10;
+      --red: #f19a9a;
+      --red-soft: #3d1c1c;
+      --code-bg: #0a120f;
+      --code-ink: #cfe9dc;
     }
-    header {
-      background: #166534;
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    header h1 { margin: 0 0 8px; font-size: 2rem; }
-    header p { margin: 0; opacity: .9; }
-    nav {
-      background: #14532d;
-      text-align: center;
-      padding: 10px;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: .95rem;
-    }
-    nav a:hover { text-decoration: underline; }
-    main { max-width: 900px; margin: 0 auto; padding: 20px; }
-    section {
-      background: #fff;
-      border-radius: 10px;
-      padding: 20px 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.1);
-    }
-    h2 { color: #166534; margin-top: 0; }
-    .dato {
-      background: #dcfce7;
-      border-left: 5px solid #16a34a;
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin: 15px 0;
-    }
-    ul { padding-left: 20px; }
-    footer {
-      background: #14532d;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      font-size: .9rem;
-    }
-  </style>
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  a { color: var(--green); }
+  :focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+  /* Navegación */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  nav ul {
+    list-style: none; margin: 0 auto; padding: .6rem 1rem;
+    max-width: 62rem; display: flex; gap: .25rem 1.1rem; flex-wrap: wrap;
+  }
+  nav a { text-decoration: none; color: var(--ink); font-weight: 500; font-size: .95rem; padding: .2rem 0; }
+  nav a:hover { color: var(--green); }
+
+  header.hero {
+    max-width: 62rem; margin: 0 auto; padding: 3.5rem 1rem 2rem;
+  }
+  .hero h1 {
+    font-family: var(--head); font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.05; margin: 0 0 1rem;
+    letter-spacing: -.02em;
+  }
+  .hero p { max-width: 38rem; color: var(--muted); font-size: 1.15rem; margin: 0 0 1.5rem; }
+  .btn {
+    display: inline-block; background: var(--green); color: #fff; text-decoration: none;
+    padding: .75rem 1.4rem; border-radius: 999px; font-weight: 700; border: 0; cursor: pointer;
+    font-family: var(--body); font-size: 1rem;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  @media (prefers-color-scheme: dark) { .btn { color: #06120d; } }
+
+  main { max-width: 62rem; margin: 0 auto; padding: 0 1rem 3rem; }
+  section { padding: 2.2rem 0; border-top: 1px solid var(--line); }
+  section h2 {
+    font-family: var(--head); font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    line-height: 1.2; margin: 0 0 1rem; letter-spacing: -.01em;
+  }
+  section p, section li { max-width: 46rem; }
+  ul.check { padding-left: 1.2rem; }
+  ul.check li { margin: .2rem 0; }
+
+  .callout {
+    background: var(--green-soft); border-left: 5px solid var(--green);
+    padding: .9rem 1.1rem; border-radius: 0 .6rem .6rem 0; max-width: 46rem;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; list-style: none; max-width: none; }
+  .chips li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: .15rem .85rem; margin: 0; }
+
+  /* POO */
+  .poo { display: grid; gap: 1.5rem; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 52rem) { .poo { grid-template-columns: 1fr 1fr; } }
+  pre {
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 1.1rem 1.2rem; border-radius: .7rem; overflow-x: auto;
+    font-family: var(--mono); font-size: .88rem; line-height: 1.55; margin: 0;
+  }
+  .tree { font-family: var(--mono); font-size: .95rem; margin: 1rem 0; }
+  .tree .node {
+    display: inline-block; background: var(--surface); border: 2px solid var(--green);
+    border-radius: .5rem; padding: .25rem .8rem; font-weight: 700;
+  }
+  .tree .branch { margin: .5rem 0 0 1.4rem; padding-left: 1.2rem; border-left: 2px solid var(--line); }
+  .tree .branch div { margin: .55rem 0; position: relative; }
+  .tree .branch div::before {
+    content: ""; position: absolute; left: -1.2rem; top: 50%; width: 1rem; border-top: 2px solid var(--line);
+  }
+
+  /* Clasificador */
+  .checker {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 1rem;
+    padding: 1.4rem; max-width: 46rem;
+  }
+  .checker form { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .checker label { display: block; font-weight: 700; margin-bottom: .4rem; width: 100%; }
+  .checker input[type="text"] {
+    flex: 1 1 14rem; padding: .75rem 1rem; font-size: 1rem; font-family: var(--body);
+    background: var(--bg); color: var(--ink); border: 2px solid var(--line); border-radius: .6rem;
+  }
+  .checker input[type="text"]:focus { border-color: var(--green); outline: none; }
+  .try { margin: 1rem 0 0; font-size: .95rem; color: var(--muted); }
+  .try button {
+    font-family: var(--body); font-size: .9rem; cursor: pointer; margin: .15rem .2rem .15rem 0;
+    background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: .15rem .75rem;
+  }
+  .try button:hover { border-color: var(--green); color: var(--green); }
+
+  #resultado { margin-top: 1.2rem; }
+  .res { border-radius: .8rem; padding: 1.1rem 1.2rem; border: 1px solid var(--line); }
+  .res.si { background: var(--green-soft); border-color: var(--green); }
+  .res.no { background: var(--amber-soft); border-color: var(--amber); }
+  .res.desconocido { background: var(--red-soft); border-color: var(--red); }
+  .res .badge { font-family: var(--head); font-weight: 800; font-size: 1.25rem; margin: 0 0 .2rem; }
+  .res.si .badge { color: var(--green); }
+  .res.no .badge { color: var(--amber); }
+  .res.desconocido .badge { color: var(--red); }
+  .res h3 { margin: .9rem 0 .3rem; font-size: 1rem; }
+  .res ol, .res ul { margin: .2rem 0 0; padding-left: 1.3rem; }
+  .res .alerta { margin-top: .9rem; padding: .6rem .8rem; background: var(--surface); border-radius: .5rem; border-left: 4px solid var(--amber); }
+  .res .meta { color: var(--muted); font-size: .92rem; margin: 0; }
+
+  footer { border-top: 1px solid var(--line); }
+  footer div { max-width: 62rem; margin: 0 auto; padding: 1.6rem 1rem 2.5rem; color: var(--muted); font-size: .95rem; }
+  footer p { margin: .2rem 0; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
 </head>
 <body>
 
-<header>
-  <h1>♻️ Manejo de los residuos electrónicos</h1>
-  <p>Aprende qué es la basura electrónica (RAEE) y cómo manejarla de forma responsable</p>
-</header>
-
-<nav>
-  <a href="#que-es">¿Qué es?</a>
-  <a href="#por-que-aumenta">¿Por qué aumenta?</a>
-  <a href="#efectos">Efectos</a>
-  <a href="#como-prevenir">Cómo prevenir</a>
-  <a href="#colombia">En Colombia</a>
-  <a href="#fuentes">Fuentes</a>
+<nav aria-label="Secciones">
+  <ul>
+    <li><a href="#que-es">¿Qué es?</a></li>
+    <li><a href="#por-que-aumenta">¿Por qué aumenta?</a></li>
+    <li><a href="#efectos">Efectos</a></li>
+    <li><a href="#como-prevenir">Cómo prevenir</a></li>
+    <li><a href="#colombia">En Colombia</a></li>
+    <li><a href="#herencia">Herencia (POO)</a></li>
+    <li><a href="#clasificador">¿Es un RAEE?</a></li>
+    <li><a href="#fuentes">Fuentes</a></li>
+  </ul>
 </nav>
+
+<header class="hero">
+  <h1>♻️ Manejo de los residuos electrónicos</h1>
+  <p>Aprende qué es la basura electrónica (RAEE) y cómo manejarla de forma responsable.</p>
+  <a class="btn" href="#clasificador">Probar el clasificador</a>
+</header>
 
 <main>
 
   <section id="que-es">
     <h2>¿Qué es la basura electrónica?</h2>
     <p>Los RAEE son los residuos provenientes de aparatos eléctricos y electrónicos que sus propietarios consideran que ya no son útiles y descartan. Pueden incluir:</p>
-    <ul>
-      <li>Computadores</li>
-      <li>Celulares</li>
-      <li>Tabletas</li>
-      <li>Televisores</li>
-      <li>Electrodomésticos</li>
-      <li>Periféricos</li>
-      <li>Cargadores y baterías</li>
-      <li>Otros equipos</li>
+    <ul class="chips">
+      <li>Computadores</li><li>Celulares</li><li>Tabletas</li><li>Televisores</li>
+      <li>Electrodomésticos</li><li>Periféricos</li><li>Cargadores y baterías</li><li>Otros equipos</li>
     </ul>
     <p>El Ministerio de Ambiente de Colombia los considera residuos de manejo diferenciado.</p>
   </section>
@@ -96,9 +198,7 @@
   <section id="por-que-aumenta">
     <h2>¿Por qué aumenta la basura electrónica?</h2>
     <p>La cantidad de residuos electrónicos ha aumentado debido al crecimiento del uso de tecnología, los ciclos de reemplazo y la aparición constante de nuevos dispositivos. Como la tecnología cambia rápidamente, muchas personas reemplazan sus aparatos o dejan de usarlos cuando se dañan. A menudo, estos aparatos se quedan guardados durante años o se botan con la basura común, en vez de llevarlos a un punto de recolección especial.</p>
-    <div class="dato">
-      <strong>Dato:</strong> La Organización Mundial de la Salud señala que en 2022 se generaron aproximadamente <strong>62 millones de toneladas</strong> de residuos electrónicos en el mundo y que solo el <strong>22,3 %</strong> fue documentado como recogido y reciclado formalmente.
-    </div>
+    <p class="callout"><strong>Dato:</strong> La Organización Mundial de la Salud señala que en 2022 se generaron aproximadamente <strong>62 millones de toneladas</strong> de residuos electrónicos en el mundo y que solo el <strong>22,3 %</strong> fue documentado como recogido y reciclado formalmente.</p>
   </section>
 
   <section id="efectos">
@@ -111,25 +211,18 @@
     <h2>¿Cómo prevenir y manejar estos residuos?</h2>
     <p>Para manejar correctamente los aparatos que ya no usamos, se debe evitar guardarlos durante años o botarlos con la basura común. En su lugar, hay que llevarlos a un punto de recolección especial.</p>
     <p>La gestión integral de estos residuos comprende estas acciones:</p>
-    <ul>
-      <li><strong>Prevención</strong></li>
-      <li><strong>Devolución</strong></li>
-      <li><strong>Recolección</strong></li>
-      <li><strong>Transporte</strong></li>
-      <li><strong>Aprovechamiento</strong></li>
-      <li><strong>Reciclaje</strong></li>
-      <li><strong>Disposición adecuada</strong></li>
+    <ul class="chips">
+      <li>Prevención</li><li>Devolución</li><li>Recolección</li><li>Transporte</li>
+      <li>Aprovechamiento</li><li>Reciclaje</li><li>Disposición adecuada</li>
     </ul>
-    <div class="dato">
-      <strong>Recuerda:</strong> Una herramienta tecnológica sencilla, como una página web, puede ayudar a entender el problema y a tomar mejores decisiones con los aparatos que ya no usamos.
-    </div>
+    <p class="callout"><strong>Recuerda:</strong> Una herramienta tecnológica sencilla, como una página web, puede ayudar a entender el problema y a tomar mejores decisiones con los aparatos que ya no usamos.</p>
   </section>
 
   <section id="colombia">
     <h2>¿Qué pasa en Colombia?</h2>
     <p>En Colombia existe una política específica para los RAEE. La <strong>Ley 1672 de 2013</strong> establece lineamientos para su gestión integral y reconoce que estos residuos deben tener un manejo diferenciado.</p>
     <p>Después, el Ministerio de Ambiente desarrolló la <strong>Política Nacional de RAEE</strong>, que incluye estrategias de:</p>
-    <ul>
+    <ul class="check">
       <li>Sensibilización y educación</li>
       <li>Recolección y gestión</li>
       <li>Infraestructura</li>
@@ -138,9 +231,65 @@
     <p>El Ministerio de Ambiente también señala la necesidad de fortalecer la recolección, el reciclaje, la infraestructura y la educación para una gestión adecuada.</p>
   </section>
 
+  <section id="herencia">
+    <h2>Principio de POO: la herencia</h2>
+    <p>La <strong>herencia</strong> permite que una clase hija reutilice los atributos y métodos de una clase padre y, además, agregue o cambie lo que necesita. Así no se repite código.</p>
+    <div class="poo">
+      <div>
+        <p>En esta página, el clasificador de la sección siguiente usa herencia. Todo objeto que escribes se convierte en un <code>Residuo</code>. Si es un aparato eléctrico o electrónico, será un <code>RAEE</code>; si no, será un <code>ResiduoComun</code>.</p>
+        <div class="tree" aria-label="Jerarquía de clases">
+          <span class="node">Residuo</span>
+          <div class="branch">
+            <div><span class="node">RAEE</span> hereda de Residuo</div>
+            <div><span class="node">ResiduoComun</span> hereda de Residuo</div>
+          </div>
+        </div>
+        <p>Las dos clases hijas heredan el atributo <code>nombre</code> con <code>super(nombre)</code> y sobrescriben el método <code>esRAEE()</code> para dar su propia respuesta.</p>
+      </div>
+      <pre><code>class Residuo {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+  esRAEE() { return false; }
+}
+
+class RAEE extends Residuo {
+  constructor(nombre, categoria) {
+    super(nombre);        // hereda
+    this.categoria = categoria;
+  }
+  esRAEE() { return true; }  // sobrescribe
+}
+
+class ResiduoComun extends Residuo {
+  constructor(nombre, destino) {
+    super(nombre);
+    this.destino = destino;
+  }
+}</code></pre>
+    </div>
+  </section>
+
+  <section id="clasificador">
+    <h2>¿Es un RAEE? Pruébalo</h2>
+    <p>Escribe el nombre de un objeto y la página te dirá si es un residuo electrónico y cómo gestionarlo.</p>
+
+    <div class="checker">
+      <form id="formulario" autocomplete="off">
+        <label for="objeto">Objeto</label>
+        <input type="text" id="objeto" name="objeto" placeholder="Por ejemplo: celular, nevera, botella" required>
+        <button class="btn" type="submit">Revisar</button>
+      </form>
+      <p class="try">Prueba con:
+        <span id="ejemplos"></span>
+      </p>
+      <div id="resultado" aria-live="polite"></div>
+    </div>
+  </section>
+
   <section id="fuentes">
     <h2>Fuentes</h2>
-    <ul>
+    <ul class="check">
       <li>Ministerio de Ambiente y Desarrollo Sostenible. Ley 1672 de 2013. Política pública de gestión integral de residuos de aparatos eléctricos y electrónicos (RAEE).</li>
       <li>Ministerio de Ambiente y Desarrollo Sostenible. Residuos de Aparatos Eléctricos y Electrónicos (RAEE).</li>
       <li>Organización Mundial de la Salud. (2024). Desechos eléctricos y electrónicos: los vertederos electrónicos y la salud de los niños.</li>
@@ -151,10 +300,233 @@
 </main>
 
 <footer>
-  <p>Proyecto de problemática tecnológica: Manejo inadecuado de los residuos electrónicos</p>
-  <p>Estudiantes: David López y Zhayd Ardila · Asignatura: Programación de computadores 1</p>
-  <p>Docente: Wilmer Callejas · Institución: Uniciencia · 16 de octubre de 2026</p>
+  <div>
+    <p>Proyecto de problemática tecnológica: Manejo inadecuado de los residuos electrónicos</p>
+    <p>Estudiantes: David López y Zhayd Ardila · Asignatura: Programación de computadores 1</p>
+    <p>Docente: Wilmer Callejas · Institución: Uniciencia · 16 de octubre de 2026</p>
+  </div>
 </footer>
 
+<script>
+/* ---------- Clases (herencia) ---------- */
+class Residuo {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+  esRAEE() { return false; }
+}
+
+class RAEE extends Residuo {
+  constructor(nombre, categoria, pasos, alerta) {
+    super(nombre);
+    this.categoria = categoria;
+    this.pasos = pasos;
+    this.alerta = alerta;
+  }
+  esRAEE() { return true; }
+}
+
+class ResiduoComun extends Residuo {
+  constructor(nombre, destino, consejo) {
+    super(nombre);
+    this.destino = destino;
+    this.consejo = consejo;
+  }
+}
+
+/* ---------- Base de conocimiento ---------- */
+const PASO_PUNTO = "Llévalo a un punto de recolección posconsumo del fabricante, de una tienda o de un gestor autorizado por tu autoridad ambiental.";
+
+const CATEGORIAS_RAEE = [
+  {
+    categoria: "Pilas y baterías",
+    claves: ["pila", "bateria", "power bank", "cargador portatil", "powerbank"],
+    pasos: [
+      "No las botes con la basura común ni las abras.",
+      "Guárdalas en un recipiente seco, separadas de objetos metálicos.",
+      "Llévalas a un contenedor de recolección de pilas (muchos supermercados y tiendas de tecnología tienen uno)."
+    ],
+    alerta: "Las baterías de litio hinchadas, golpeadas o calientes pueden incendiarse. Manéjalas con cuidado."
+  },
+  {
+    categoria: "Bombillos y luminarias",
+    claves: ["bombillo", "bombilla", "lampara", "led", "fluorescente", "luminaria", "ahorrador"],
+    pasos: [
+      "Evita romperlo: algunos bombillos contienen mercurio.",
+      "Guárdalo en su caja o envuélvelo con cuidado.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  },
+  {
+    categoria: "Celulares y tabletas",
+    claves: ["celular", "telefono", "movil", "smartphone", "iphone", "tablet", "tableta", "ipad", "smartwatch", "reloj inteligente"],
+    pasos: [
+      "Haz una copia de tus datos y restablece el equipo de fábrica.",
+      "Retira la SIM y la tarjeta de memoria.",
+      "Si aún funciona, considera donarlo o repararlo antes de desecharlo.",
+      PASO_PUNTO
+    ],
+    alerta: "Borra tu información personal antes de entregarlo."
+  },
+  {
+    categoria: "Computadores",
+    claves: ["computador", "computadora", "portatil", "laptop", "ordenador", "torre", "pc", "disco duro", "memoria usb", "usb"],
+    pasos: [
+      "Haz una copia de tus archivos y borra el disco de forma segura.",
+      "Si aún sirve, dónalo a una institución o programa de reutilización de equipos.",
+      PASO_PUNTO
+    ],
+    alerta: "Un formateo simple puede no ser suficiente. Usa una herramienta de borrado seguro o retira el disco."
+  },
+  {
+    categoria: "Televisores y pantallas",
+    claves: ["televisor", "television", "tv", "monitor", "pantalla"],
+    pasos: [
+      "No lo desarmes: puede contener componentes peligrosos.",
+      "Pide en la tienda donde compras uno nuevo si reciben el anterior.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  },
+  {
+    categoria: "Periféricos y redes",
+    claves: ["teclado", "mouse", "raton", "impresora", "escaner", "parlante", "altavoz", "audifonos", "auriculares", "webcam", "camara web", "router", "modem", "cartucho"],
+    pasos: [
+      "Verifica si todavía funciona: puedes donarlo o regalarlo.",
+      "Si está dañado, sepáralo de la basura común.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  },
+  {
+    categoria: "Cargadores y cables",
+    claves: ["cargador", "cable", "adaptador", "extension", "regleta"],
+    pasos: [
+      "Guárdalos aparte; muchos cables contienen cobre y otros metales aprovechables.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  },
+  {
+    categoria: "Electrodomésticos",
+    claves: ["nevera", "refrigerador", "lavadora", "microondas", "licuadora", "plancha", "secador", "ventilador", "aire acondicionado", "tostadora", "cafetera", "estufa electrica", "aspiradora", "horno electrico", "arrocera", "freidora", "batidora", "calentador", "electrodomestico"],
+    pasos: [
+      "Si funciona, dónalo o véndelo para darle una segunda vida.",
+      "Neveras y aires acondicionados contienen gases refrigerantes: no los desarmes.",
+      "Pregunta al comprar uno nuevo si el distribuidor recoge el aparato viejo.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  },
+  {
+    categoria: "Consolas, juguetes y otros electrónicos",
+    claves: ["consola", "videojuego", "control remoto", "juguete electronico", "calculadora", "radio", "reloj digital", "drone", "dron", "camara", "reproductor", "gps", "alarma"],
+    pasos: [
+      "Retira las pilas o baterías y entrégalas por separado.",
+      "Si funciona, considera donarlo.",
+      PASO_PUNTO
+    ],
+    alerta: null
+  }
+];
+
+const COMUNES = [
+  { claves: ["botella", "plastico", "envase", "tapa"], destino: "Reciclaje: plásticos", consejo: "Enjuágalo, aplástalo y deposítalo en la bolsa o caneca de material aprovechable." },
+  { claves: ["vidrio", "frasco", "tarro"], destino: "Reciclaje: vidrio", consejo: "Enjuágalo y entrégalo sin romper en la bolsa o caneca de aprovechables." },
+  { claves: ["papel", "carton", "periodico", "revista", "caja", "cuaderno"], destino: "Reciclaje: papel y cartón", consejo: "Mantenlo limpio y seco y sepáralo en la bolsa o caneca de aprovechables." },
+  { claves: ["lata", "aluminio", "metal"], destino: "Reciclaje: metales", consejo: "Enjuágala, aplástala y deposítala con los materiales aprovechables." },
+  { claves: ["cascara", "comida", "fruta", "verdura", "sobras", "hueso"], destino: "Residuo orgánico", consejo: "Sepáralo en la caneca de orgánicos o úsalo para compostaje." },
+  { claves: ["ropa", "zapato", "camisa", "pantalon", "tenis"], destino: "Reutilización o donación", consejo: "Si está en buen estado, dónalo. Si no, llévalo a un punto de recolección de textiles." },
+  { claves: ["bolsa", "servilleta", "icopor", "pañal", "panal"], destino: "Residuo no aprovechable", consejo: "Va en la caneca de residuos ordinarios." }
+];
+
+/* ---------- Búsqueda ---------- */
+function normalizar(texto) {
+  return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+}
+
+function coincide(clave, texto, tokens) {
+  if (clave.includes(" ")) return texto.includes(clave);
+  if (clave.length <= 3) return tokens.includes(clave);
+  return tokens.some(t => t === clave || t.startsWith(clave));
+}
+
+function clasificar(entrada) {
+  const texto = normalizar(entrada);
+  const tokens = texto.split(/[^a-z0-9ñ]+/).filter(Boolean);
+
+  for (const c of CATEGORIAS_RAEE) {
+    if (c.claves.some(k => coincide(k, texto, tokens))) {
+      return new RAEE(entrada, c.categoria, c.pasos, c.alerta);
+    }
+  }
+  for (const c of COMUNES) {
+    if (c.claves.some(k => coincide(k, texto, tokens))) {
+      return new ResiduoComun(entrada, c.destino, c.consejo);
+    }
+  }
+  return null;
+}
+
+/* ---------- Mostrar resultado ---------- */
+function escapar(s) {
+  return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function mostrar(entrada) {
+  const cont = document.getElementById("resultado");
+  const nombre = escapar(entrada);
+  const residuo = clasificar(entrada);
+
+  if (!residuo) {
+    cont.innerHTML =
+      '<div class="res desconocido">' +
+      '<p class="badge">No lo reconozco</p>' +
+      '<p class="meta">Objeto: ' + nombre + '</p>' +
+      '<p>Todavía no tengo ese objeto en mi lista. Una regla útil: si funciona con enchufe, pilas o batería, casi seguro es un RAEE y no debe ir a la basura común.</p>' +
+      '<p>Prueba con otro nombre, por ejemplo «celular» o «cargador».</p>' +
+      '</div>';
+    return;
+  }
+
+  if (residuo.esRAEE()) {
+    const pasos = residuo.pasos.map(p => "<li>" + p + "</li>").join("");
+    const alerta = residuo.alerta ? '<p class="alerta"><strong>Ojo:</strong> ' + residuo.alerta + "</p>" : "";
+    cont.innerHTML =
+      '<div class="res si">' +
+      '<p class="badge">Sí es un RAEE</p>' +
+      '<p class="meta">Objeto: ' + nombre + " · Categoría: " + residuo.categoria + "</p>" +
+      "<h3>Cómo gestionarlo</h3><ol>" + pasos + "</ol>" + alerta +
+      "</div>";
+  } else {
+    cont.innerHTML =
+      '<div class="res no">' +
+      '<p class="badge">No es un RAEE</p>' +
+      '<p class="meta">Objeto: ' + nombre + "</p>" +
+      "<h3>" + residuo.destino + "</h3>" +
+      "<p>" + residuo.consejo + "</p>" +
+      "</div>";
+  }
+}
+
+/* ---------- Eventos ---------- */
+const form = document.getElementById("formulario");
+const input = document.getElementById("objeto");
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const valor = input.value.trim();
+  if (valor) mostrar(valor);
+});
+
+["celular", "nevera", "pilas", "bombillo", "botella", "cáscara de banano"].forEach(ej => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = ej;
+  b.addEventListener("click", () => { input.value = ej; mostrar(ej); });
+  document.getElementById("ejemplos").appendChild(b);
+});
+</script>
 </body>
 </html>
