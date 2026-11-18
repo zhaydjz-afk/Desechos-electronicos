@@ -68,7 +68,7 @@ footer p{margin:.2rem 0}
 <nav aria-label="Secciones"><ul>
 <li><a href="#que-es">¿Qué es?</a></li><li><a href="#por-que-aumenta">¿Por qué aumenta?</a></li>
 <li><a href="#efectos">Efectos</a></li><li><a href="#como-prevenir">Cómo prevenir</a></li>
-<li><a href="#colombia">En Colombia</a></li><li><a href="#herencia">Herencia (POO)</a></li>
+<li><a href="#colombia">En Colombia</a></li>
 <li><a href="#clasificador">¿Es un RAEE?</a></li><li><a href="#fuentes">Fuentes</a></li>
 </ul></nav>
 
@@ -112,44 +112,6 @@ footer p{margin:.2rem 0}
 <p>Después, el Ministerio de Ambiente desarrolló la <strong>Política Nacional de RAEE</strong>, que incluye estrategias de:</p>
 <ul><li>Sensibilización y educación</li><li>Recolección y gestión</li><li>Infraestructura</li><li>Cooperación y alianzas entre diferentes actores</li></ul>
 <p>El Ministerio de Ambiente también señala la necesidad de fortalecer la recolección, el reciclaje, la infraestructura y la educación para una gestión adecuada.</p>
-</section>
-
-<section id="herencia">
-<h2>Principio de POO: la herencia</h2>
-<p>La <strong>herencia</strong> permite que una clase hija reutilice los atributos y métodos de una clase padre y, además, agregue o cambie lo que necesita. Así no se repite código.</p>
-<div class="poo">
-<div>
-<p>En esta página, el clasificador de la sección siguiente usa herencia. Todo objeto que escribes se convierte en un <code>Residuo</code>. Si es un aparato eléctrico o electrónico, será un <code>RAEE</code>; si no, será un <code>ResiduoComun</code>.</p>
-<div class="tree" aria-label="Jerarquía de clases">
-<span class="node">Residuo</span>
-<div class="branch">
-<div><span class="node">RAEE</span> hereda de Residuo</div>
-<div><span class="node">ResiduoComun</span> hereda de Residuo</div>
-</div></div>
-<p>Las dos clases hijas heredan el atributo <code>nombre</code> con <code>super(nombre)</code> y sobrescriben el método <code>esRAEE()</code> para dar su propia respuesta.</p>
-</div>
-<pre><code>class Residuo {
-  constructor(nombre) {
-    this.nombre = nombre;
-  }
-  esRAEE() { return false; }
-}
-
-class RAEE extends Residuo {
-  constructor(nombre, categoria) {
-    super(nombre);        // hereda
-    this.categoria = categoria;
-  }
-  esRAEE() { return true; }  // sobrescribe
-}
-
-class ResiduoComun extends Residuo {
-  constructor(nombre, destino) {
-    super(nombre);
-    this.destino = destino;
-  }
-}</code></pre>
-</div>
 </section>
 
 <section id="clasificador">
