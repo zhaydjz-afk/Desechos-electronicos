@@ -31,14 +31,6 @@ section p,section li{max-width:46rem}
 .callout{background:var(--grs);border-left:5px solid var(--gr);padding:.9rem 1.1rem;border-radius:0 .6rem .6rem 0}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;list-style:none}
 .chips li{background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:.15rem .85rem}
-.poo{display:grid;gap:1.5rem;align-items:start}
-@media(min-width:52rem){.poo{grid-template-columns:1fr 1fr}}
-pre{background:var(--cb);color:var(--ci);padding:1.1rem 1.2rem;border-radius:.7rem;overflow-x:auto;font:.88rem/1.55 var(--m);margin:0}
-.tree{font-family:var(--m);margin:1rem 0}
-.node{display:inline-block;background:var(--sf);border:2px solid var(--gr);border-radius:.5rem;padding:.25rem .8rem;font-weight:700}
-.branch{margin:.5rem 0 0 1.4rem;padding-left:1.2rem;border-left:2px solid var(--ln)}
-.branch div{margin:.55rem 0;position:relative}
-.branch div::before{content:"";position:absolute;left:-1.2rem;top:50%;width:1rem;border-top:2px solid var(--ln)}
 .checker{background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:1.4rem;max-width:46rem}
 form{display:flex;gap:.6rem;flex-wrap:wrap}
 label{width:100%;font-weight:700}
@@ -145,87 +137,31 @@ footer p{margin:.2rem 0}
 <p>Docente: Wilmer Callejas · Institución: Uniciencia · 16 de octubre de 2026</p>
 </div></footer>
 
-<script>
-/* ---------- Clases (herencia) ---------- */
-class Residuo {
-  constructor(nombre) { this.nombre = nombre; }
-  esRAEE() { return false; }
-}
-class RAEE extends Residuo {
-  constructor(nombre, { categoria, pasos, alerta }) {
-    super(nombre);
-    Object.assign(this, { categoria, pasos, alerta });
-  }
-  esRAEE() { return true; }
-}
-class ResiduoComun extends Residuo {
-  constructor(nombre, { destino, consejo }) {
-    super(nombre);
-    Object.assign(this, { destino, consejo });
-  }
-}
-
-/* ---------- Datos ---------- */
-const P = "Llévalo a un punto de recolección posconsumo del fabricante, de una tienda o de un gestor autorizado por tu autoridad ambiental.";
-const R = (categoria, claves, pasos, alerta = null) => ({ categoria, claves, pasos, alerta });
-const C = (destino, claves, consejo) => ({ destino, claves, consejo });
-
-const CATEGORIAS = [
-  R("Pilas y baterías", ["pila", "bateria", "power bank", "cargador portatil", "powerbank"],
-    ["No las botes con la basura común ni las abras.", "Guárdalas en un recipiente seco, separadas de objetos metálicos.", "Llévalas a un contenedor de recolección de pilas (muchos supermercados y tiendas de tecnología tienen uno)."],
-    "Las baterías de litio hinchadas, golpeadas o calientes pueden incendiarse. Manéjalas con cuidado."),
-  R("Bombillos y luminarias", ["bombillo", "bombilla", "lampara", "led", "fluorescente", "luminaria", "ahorrador"],
-    ["Evita romperlo: algunos bombillos contienen mercurio.", "Guárdalo en su caja o envuélvelo con cuidado.", P]),
-  R("Celulares y tabletas", ["celular", "telefono", "movil", "smartphone", "iphone", "tablet", "tableta", "ipad", "smartwatch", "reloj inteligente"],
-    ["Haz una copia de tus datos y restablece el equipo de fábrica.", "Retira la SIM y la tarjeta de memoria.", "Si aún funciona, considera donarlo o repararlo antes de desecharlo.", P],
-    "Borra tu información personal antes de entregarlo."),
-  R("Computadores", ["computador", "computadora", "portatil", "laptop", "ordenador", "torre", "pc", "disco duro", "memoria usb", "usb"],
-    ["Haz una copia de tus archivos y borra el disco de forma segura.", "Si aún sirve, dónalo a una institución o programa de reutilización de equipos.", P],
-    "Un formateo simple puede no ser suficiente. Usa una herramienta de borrado seguro o retira el disco."),
-  R("Televisores y pantallas", ["televisor", "television", "tv", "monitor", "pantalla"],
-    ["No lo desarmes: puede contener componentes peligrosos.", "Pide en la tienda donde compras uno nuevo si reciben el anterior.", P]),
-  R("Periféricos y redes", ["teclado", "mouse", "raton", "impresora", "escaner", "parlante", "altavoz", "audifonos", "auriculares", "webcam", "camara web", "router", "modem", "cartucho"],
-    ["Verifica si todavía funciona: puedes donarlo o regalarlo.", "Si está dañado, sepáralo de la basura común.", P]),
-  R("Cargadores y cables", ["cargador", "cable", "adaptador", "extension", "regleta"],
-    ["Guárdalos aparte; muchos cables contienen cobre y otros metales aprovechables.", P]),
-  R("Electrodomésticos", ["nevera", "refrigerador", "lavadora", "microondas", "licuadora", "plancha", "secador", "ventilador", "aire acondicionado", "tostadora", "cafetera", "estufa electrica", "aspiradora", "horno electrico", "arrocera", "freidora", "batidora", "calentador", "electrodomestico"],
-    ["Si funciona, dónalo o véndelo para darle una segunda vida.", "Neveras y aires acondicionados contienen gases refrigerantes: no los desarmes.", "Pregunta al comprar uno nuevo si el distribuidor recoge el aparato viejo.", P]),
-  R("Consolas, juguetes y otros electrónicos", ["consola", "videojuego", "control remoto", "juguete electronico", "calculadora", "radio", "reloj digital", "drone", "dron", "camara", "reproductor", "gps", "alarma"],
-    ["Retira las pilas o baterías y entrégalas por separado.", "Si funciona, considera donarlo.", P])
-];
-
-const COMUNES = [
-  C("Reciclaje: plásticos", ["botella", "plastico", "envase", "tapa"], "Enjuágalo, aplástalo y deposítalo en la bolsa o caneca de material aprovechable."),
-  C("Reciclaje: vidrio", ["vidrio", "frasco", "tarro"], "Enjuágalo y entrégalo sin romper en la bolsa o caneca de aprovechables."),
-  C("Reciclaje: papel y cartón", ["papel", "carton", "periodico", "revista", "caja", "cuaderno"], "Mantenlo limpio y seco y sepáralo en la bolsa o caneca de aprovechables."),
-  C("Reciclaje: metales", ["lata", "aluminio", "metal"], "Enjuágala, aplástala y deposítala con los materiales aprovechables."),
-  C("Residuo orgánico", ["cascara", "comida", "fruta", "verdura", "sobras", "hueso"], "Sepáralo en la caneca de orgánicos o úsalo para compostaje."),
-  C("Reutilización o donación", ["ropa", "zapato", "camisa", "pantalon", "tenis"], "Si está en buen estado, dónalo. Si no, llévalo a un punto de recolección de textiles."),
-  C("Residuo no aprovechable", ["bolsa", "servilleta", "icopor", "pañal", "panal"], "Va en la caneca de residuos ordinarios.")
-];
-
-/* ---------- Lógica ---------- */
-const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+<!-- CheerpJ: ejecuta el Java (raee.jar) dentro del navegador -->
+<script src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
+<script type="module">
 const esc = s => s.replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
-const buscar = (lista, t) =>
-  lista.find(x => x.claves.some(k => new RegExp(`\\b${norm(k)}(e?s)?\\b`).test(t)));
+const out = document.getElementById("resultado");
+const input = document.getElementById("objeto");
+let Clasificador = null;
 
-function clasificar(texto) {
-  const t = norm(texto);
-  let d;
-  if ((d = buscar(CATEGORIAS, t))) return new RAEE(texto, d);
-  if ((d = buscar(COMUNES, t))) return new ResiduoComun(texto, d);
-  return new Residuo(texto);
+function mostrarError(msg) {
+  out.innerHTML = `<div class="res desc"><p class="badge">Error</p><p>${msg}</p></div>`;
 }
 
-function mostrar(texto) {
-  const r = clasificar(texto), n = esc(texto), out = document.getElementById("resultado");
-  if (r instanceof RAEE) {
+async function mostrar(texto) {
+  if (!Clasificador) { out.innerHTML = '<p class="meta">Java todavía está cargando, intenta de nuevo en unos segundos…</p>'; return; }
+  const n = esc(texto);
+  let r;
+  try { r = JSON.parse(await Clasificador.clasificarJson(texto)); }
+  catch (e) { mostrarError("No se pudo ejecutar el código Java."); console.error(e); return; }
+
+  if (r.tipo === "raee") {
     out.innerHTML = `<div class="res si"><p class="badge">Sí, es un RAEE</p>
       <p class="meta"><strong>${n}</strong> · Categoría: ${r.categoria}</p>
       <h3>¿Qué hacer?</h3><ol>${r.pasos.map(p => `<li>${p}</li>`).join("")}</ol>
       ${r.alerta ? `<p class="alerta"><strong>Ojo:</strong> ${r.alerta}</p>` : ""}</div>`;
-  } else if (r instanceof ResiduoComun) {
+  } else if (r.tipo === "comun") {
     out.innerHTML = `<div class="res no"><p class="badge">No es un RAEE</p>
       <p class="meta"><strong>${n}</strong> · Destino: ${r.destino}</p>
       <h3>¿Qué hacer?</h3><p>${r.consejo}</p></div>`;
@@ -235,7 +171,6 @@ function mostrar(texto) {
   }
 }
 
-const input = document.getElementById("objeto");
 document.getElementById("formulario").addEventListener("submit", e => {
   e.preventDefault();
   if (input.value.trim()) mostrar(input.value.trim());
@@ -246,6 +181,17 @@ document.getElementById("ejemplos").innerHTML =
 document.getElementById("ejemplos").addEventListener("click", e => {
   if (e.target.tagName === "BUTTON") { input.value = e.target.textContent; mostrar(input.value); }
 });
+
+// Carga de Java. "/app/" es la raíz del servidor web (así lo ve CheerpJ).
+try {
+  const carpeta = location.pathname.replace(/[^/]*$/, "");   // "/" en local, "/Desechos-electronicos/" en GitHub Pages
+  await cheerpjInit();
+  const lib = await cheerpjRunLibrary("/app" + carpeta + "raee.jar");
+  Clasificador = await lib.raee.Clasificador;
+} catch (e) {
+  mostrarError("No se pudo cargar raee.jar. Revisa que esté en la misma carpeta que index.html.");
+  console.error(e);
+}
 </script>
 </body>
 </html>
